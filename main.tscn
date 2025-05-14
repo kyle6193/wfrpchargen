@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1ywv6cpg8uwu"]
+
+[ext_resource type="Script" uid="uid://bkyd3nmoxnrw8" path="res://CharacterGenerator.gd" id="1_wn2oe"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Character Generator" type="Node" parent="."]
+script = ExtResource("1_wn2oe")

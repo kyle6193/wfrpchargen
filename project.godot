@@ -17,4 +17,4 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CareerGenerator="*res://Class_Career_Gen.gd"
+Dice="*res://dice.gd"

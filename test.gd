@@ -1,10 +1,10 @@
 extends Node
 
-var dice = preload("res://dice.gd").new()
+
 
 # Step 1: Generate Species using weighted random (1d100)
 func generate_species() -> String:
-	var roll = dice.roll_d100()
+	var roll = Dice.roll_d100()
 	if roll <= 90:
 		return "Human"
 	elif roll <= 94:
@@ -30,24 +30,32 @@ var careers = {
 }
 
 func generate_player_career() -> String:
+	var CareerGenerator = load("res://Class_Career_Gen.gd")
+	var career_generator = CareerGenerator.new()
 	if generate_species() == "Human":
-		var chosen_career = CareerGenerator.generate_human_career()
+		var chosen_career = career_generator.generate_human_career()
 		return chosen_career
 	elif generate_species() == "Halfling":
-		var chosen_career = CareerGenerator.generate_halfling_career()
+		var chosen_career = career_generator.generate_halfling_career()
 		return chosen_career
 	elif generate_species() == "Dwarf":
-		var chosen_career = CareerGenerator.generate_dwarf_career()
+		var chosen_career = career_generator.generate_dwarf_career()
 		return chosen_career
 	elif generate_species() == "High Elf":
-		var chosen_career = CareerGenerator.generate_highelf_career()
+		var chosen_career = career_generator.generate_highelf_career()
 		return chosen_career
 	else: 
-		var chosen_career = CareerGenerator.generate_woodelf_career()
+		var chosen_career = career_generator.generate_woodelf_career()
 		return chosen_career
 
-func _ready():
-	for i in range(10):
-		print(generate_species())
-		print(generate_player_career())
-		print("")
+#func generate_class_career() -> String:
+	#var chosen_class = classes[randi() % classes.size()]
+	#var career_list = careers[chosen_class]
+	#var chosen_career = career_list[randi() % career_list.size()]
+	#return chosen_class + " - " + chosen_career
+
+# Step 3: Generate Attributes.
+func generate_attributes():
+	var Characteristic_Gen = load("res://Characteristic_Gen.gd")
+	var characteristic_gen = Characteristic_Gen.new()
+	characteristic_gen.generate_start_charac()

@@ -1,13 +1,12 @@
 extends Node
 
-var dice = preload("res://dice.gd").new()
-var CharacterGenerator = preload("res://CharacterGenerator.gd")
+var character_generator = preload("res://CharacterGenerator.gd").new()
 
 #Roll 2d10 for each of the Characteristics
 func generate_start_charac() -> Dictionary:
 	var attrs = {}
 	var stat_bonus_dict = {}
-	if CharacterGenerator.generate_species == "Human":
+	if character_generator.generate_species() == "Human":
 		var base = {
 			"Weapon Skill": 20,
 			"Ballistic Skill": 20,
@@ -21,7 +20,7 @@ func generate_start_charac() -> Dictionary:
 			"Fellowship": 20
 		}
 		for key in base.keys():
-			attrs[key] = dice.roll_2d10() + base[key]
+			attrs[key] = Dice.roll_2d10() + base[key]
 		for key in attrs.keys():
 			var stat = attrs[key]
 			var stat_bonus = int(str(stat)[0])
@@ -32,7 +31,7 @@ func generate_start_charac() -> Dictionary:
 		attrs["Extra Points"] = 3
 		attrs["Movement"] = 4
 		return attrs
-	elif CharacterGenerator.generate_species == "Dwarf":
+	elif character_generator.generate_species() == "Dwarf":
 		var base = {
 			"Weapon Skill": 30,
 			"Ballistic Skill": 20,
@@ -46,7 +45,7 @@ func generate_start_charac() -> Dictionary:
 			"Fellowship": 10
 		}
 		for key in base.keys():
-			attrs[key] = dice.roll_2d10() + base[key]
+			attrs[key] = Dice.roll_2d10() + base[key]
 		for key in attrs.keys():
 			var stat = attrs[key]
 			var stat_bonus = int(str(stat)[0])
@@ -57,7 +56,7 @@ func generate_start_charac() -> Dictionary:
 		attrs["Extra Points"] = 2
 		attrs["Movement"] = 3
 		return attrs
-	elif CharacterGenerator.generate_species == "Halfling":
+	elif character_generator.generate_species() == "Halfling":
 		var base = {
 			"Weapon Skill": 10,
 			"Ballistic Skill": 30,
@@ -71,7 +70,7 @@ func generate_start_charac() -> Dictionary:
 			"Fellowship": 30
 		}
 		for key in base.keys():
-			attrs[key] = dice.roll_2d10() + base[key]
+			attrs[key] = Dice.roll_2d10() + base[key]
 		for key in attrs.keys():
 			var stat = attrs[key]
 			var stat_bonus = int(str(stat)[0])
@@ -96,7 +95,7 @@ func generate_start_charac() -> Dictionary:
 			"Fellowship": 20
 		}
 		for key in base.keys():
-			attrs[key] = dice.roll_2d10() + base[key]
+			attrs[key] = Dice.roll_2d10() + base[key]
 		for key in attrs.keys():
 			var stat = attrs[key]
 			var stat_bonus = int(str(stat)[0])

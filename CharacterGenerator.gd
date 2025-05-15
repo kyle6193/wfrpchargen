@@ -1,10 +1,8 @@
 extends Node
 
-var dice = preload("res://dice.gd").new()
-
 # Step 1: Generate Species using weighted random (1d100)
 func generate_species() -> String:
-	var roll = dice.roll_d100()
+	var roll = Dice.roll_d100()
 	if roll <= 90:
 		return "Human"
 	elif roll <= 94:
@@ -30,118 +28,48 @@ var careers = {
 }
 
 func generate_player_career() -> String:
+	var CareerGenerator = load("res://Class_Career_Gen.gd")
+	var career_generator = CareerGenerator.new()
 	if generate_species() == "Human":
-		var chosen_career = CareerGenerator.generate_human_career()
+		var chosen_career = career_generator.generate_human_career()
 		return chosen_career
 	elif generate_species() == "Halfling":
-		var chosen_career = CareerGenerator.generate_halfling_career()
+		var chosen_career = career_generator.generate_halfling_career()
 		return chosen_career
 	elif generate_species() == "Dwarf":
-		var chosen_career = CareerGenerator.generate_dwarf_career()
+		var chosen_career = career_generator.generate_dwarf_career()
 		return chosen_career
 	elif generate_species() == "High Elf":
-		var chosen_career = CareerGenerator.generate_highelf_career()
+		var chosen_career = career_generator.generate_highelf_career()
 		return chosen_career
 	else: 
-		var chosen_career = CareerGenerator.generate_woodelf_career()
+		var chosen_career = career_generator.generate_woodelf_career()
 		return chosen_career
 
-#func generate_class_career() -> String:
-	#var chosen_class = classes[randi() % classes.size()]
-	#var career_list = careers[chosen_class]
-	#var chosen_career = career_list[randi() % career_list.size()]
-	#return chosen_class + " - " + chosen_career
-
 # Step 3: Generate Attributes.
-func generate_attributes() -> Dictionary:
-	var base = {
-		"Weapon Skill": 20,
-		"Ballistic Skill": 20,
-		"Strength": 20,
-		"Toughness": 20,
-		"Initiative": 20,
-		"Agility": 20,
-		"Dexterity": 20,
-		"Intelligence": 20,
-		"Willpower": 20,
-		"Fellowship": 20
-	}
-	var attrs = {}
-	for key in base.keys():
-		attrs[key] = dice.roll_2d10() + base[key]
-	attrs["Movement"] = 4
-	attrs["Fate"] = 2
-	attrs["Resilience"] = 1
-	attrs["Extra Points"] = 3
-	return attrs
+func generate_attributes() -> Dictionary: 
+	var Characteristic_Gen = load("res://Characteristic_Gen.gd").new()
+	var characteristic_gen = Characteristic_Gen
+	return characteristic_gen.generate_start_charac()
 
-# Step 4: Generate Skills and Talents.
-var possible_skills = ["Melee", "Ranged", "Cool", "Lore", "Haggle", "Perception", "Intuition"]
-var possible_talents = ["Night Vision", "Acute Sense", "Strong", "Savvy", "Small"]
+func organize_attributes(attrs: Dictionary) -> void:
+	for key in attrs.keys():
+		var value = attrs[key]
+		print("%s: %s" % [key, value])
 
-func generate_skills() -> Array:
-	var skills = []
-	var skill_pool = possible_skills.duplicate()
-	for i in range(3):  # pick 3 skills
-		var index = randi() % skill_pool.size()
-		var skill = skill_pool[index]
-		var advances = randi() % 6 + 5  # advances between 5 and 10
-		skills.append(skill + ": " + str(advances))
-		skill_pool.remove(index)
-	return skills
+'''
+attrs originates from the other script, accessible via load(). generate_attributes calls the 
+generate_start_charac function to have the attrs dictionary returned to it. This dictionary is 
+mentioned in the parameter of organize_attributes (and explicitly labeled as a Dictionary). 
+A for loop references the dictionary (passed to it by the preceding function) and interpolates 
+the data into various Strings. Then in the ready function we don't print the generate_attributes 
+function, instead we call it via a newly defined variable: attrs. 
+This variable is the aforementioned required parameter inside the organize_attributes function. 
+Finally we get our line by line data.
+'''
 
-func generate_talents() -> Array:
-	var talents = []
-	var talent_pool = possible_talents.duplicate()
-	for i in range(2):  # pick 2 talents
-		var index = randi() % talent_pool.size()
-		talents.append(talent_pool[index])
-		talent_pool.remove(index)
-	return talents
-
-# Step 5: Generate Trappings.
-var possible_trappings = ["Dagger", "Coin Pouch", "Simple Armor", "Whetstone", "Backpack", "Rope", "Lantern"]
-
-func generate_trappings() -> Array:
-	var trappings = []
-	var trapping_pool = possible_trappings.duplicate()
-	for i in range(3):  # choose 3 random items
-		var index = randi() % trapping_pool.size()
-		trappings.append(trapping_pool[index])
-		trapping_pool.remove(index)
-	return trappings
-
-# Main function to generate a character sheet and display it.
-func _ready():
-	randomize()  # Ensure randomness
-	
-	# Create a new CharacterSheet resource
-	var character = CharacterSheet.new()
-	character.species = generate_species()
-	character.class_career = generate_player_career()
-	character.attributes = generate_attributes()
-	character.skills = generate_skills()
-	character.talents = generate_talents()
-	character.trappings = generate_trappings()
-	
-	# Optionally save the resource (uncomment the next line to save to a file)
-	# ResourceSaver.save(character, "user://generated_character.tres")
-	
-	# Display the generated character sheet (basic output)
-	print("-------------------------")
-	print("WFRP Character Sheet")
-	print("-------------------------")
-	print("Species: ", character.species)
-	print("Class/Career: ", character.class_career)
-	print("\nAttributes:")
-	for key in character.attributes.keys():
-		print("  ", key, ": ", character.attributes[key])
-	print("\nSkills:")
-	for skill in character.skills:
-		print("  ", skill)
-	print("\nTalents:")
-	for talent in character.talents:
-		print("  ", talent)
-	print("\nTrappings:")
-	for item in character.trappings:
-		print("  ", item)
+func _ready() -> void:
+	print(generate_species())
+	print(generate_player_career())
+	var attrs = generate_attributes()
+	organize_attributes(attrs)

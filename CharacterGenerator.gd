@@ -1,18 +1,10 @@
 extends Node
 
-# For random generation we define helper functions:
-func roll_d10() -> int:
-	return randi_range(1, 10)
-
-func roll_2d10() -> int:
-	return roll_d10() + roll_d10()
-
-func roll_d100() -> int:
-	return randi_range(1, 100)
+var dice = preload("res://dice.gd").new()
 
 # Step 1: Generate Species using weighted random (1d100)
 func generate_species() -> String:
-	var roll = roll_d100()
+	var roll = dice.roll_d100()
 	if roll <= 90:
 		return "Human"
 	elif roll <= 94:
@@ -76,7 +68,7 @@ func generate_attributes() -> Dictionary:
 	}
 	var attrs = {}
 	for key in base.keys():
-		attrs[key] = roll_2d10() + base[key]
+		attrs[key] = dice.roll_2d10() + base[key]
 	attrs["Movement"] = 4
 	attrs["Fate"] = 2
 	attrs["Resilience"] = 1

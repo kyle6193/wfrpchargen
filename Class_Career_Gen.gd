@@ -1,10 +1,9 @@
 extends Node
 
-func roll_d100() -> int:
-	return randi_range(1, 100)
+var dice = preload("res://dice.gd").new()
 
 func generate_human_career() -> String:
-	var roll = roll_d100()
+	var roll = dice.roll_d100()
 	if roll <= 1:
 		return "Apothecary"
 	elif roll <= 2:
@@ -132,7 +131,7 @@ func generate_human_career() -> String:
 	else: return "Warrior Priest"
 
 func generate_dwarf_career() -> String:
-	var roll = roll_d100()
+	var roll = dice.roll_d100()
 	if roll <= 1:
 		return "Apothecary"
 	elif roll <= 4:
@@ -228,7 +227,7 @@ func generate_dwarf_career() -> String:
 	else: return "Slayer"
 
 func generate_halfling_career() -> String:
-	var roll = roll_d100()
+	var roll = dice.roll_d100()
 	if roll <= 1:
 		return "Apothecary"
 	elif roll <= 2:
@@ -326,7 +325,7 @@ func generate_halfling_career() -> String:
 	else: return "Soldier"
 
 func generate_highelf_career() -> String:
-	var roll = roll_d100()
+	var roll = dice.roll_d100()
 	if roll <= 2:
 		return "Apothecary"
 	elif roll <= 6:
@@ -398,7 +397,7 @@ func generate_highelf_career() -> String:
 	else: return "Soldier"
 
 func generate_woodelf_career() -> String:
-	var roll = roll_d100()
+	var roll = dice.roll_d100()
 	if roll <= 1:
 		return "Scholar"
 	elif roll <= 5:

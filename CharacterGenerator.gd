@@ -53,7 +53,7 @@ func generate_attributes() -> Dictionary:
 	return characteristic_gen.generate_start_charac()
 
 func organize_attributes(attrs: Dictionary) -> void:
-	for key in attrs.keys():
+	for key in attrs:
 		var value = attrs[key]
 		print("%s: %s" % [key, value])
 

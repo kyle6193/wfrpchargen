@@ -234,9 +234,9 @@ func generate_halfling_career() -> String:
 		return "Lawyer"
 	elif roll <= 6:
 		return "Physician"
-	elif roll <= 12:
-		return "Scholar"
 	elif roll <= 10:
+		return "Scholar"
+	elif roll <= 12:
 		return "Agitator"
 	elif roll <= 15:
 		return "Artisan"

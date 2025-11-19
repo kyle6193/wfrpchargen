@@ -126,7 +126,7 @@ func generate_human_career() -> String:
 		return "Protagonist"
 	elif roll <= 99:
 		return "Soldier"
-	else: return "Warrior Priest"
+	return "Warrior Priest"
 
 func generate_dwarf_career() -> String:
 	var roll = Dice.roll_d100()
@@ -222,7 +222,7 @@ func generate_dwarf_career() -> String:
 		return "Protagonist"
 	elif roll <= 96:
 		return "Soldier"
-	else: return "Slayer"
+	return "Slayer"
 
 func generate_halfling_career() -> String:
 	var roll = Dice.roll_d100()
@@ -320,7 +320,7 @@ func generate_halfling_career() -> String:
 		return "Guard"
 	elif roll <= 97:
 		return "Pit Fighter"
-	else: return "Soldier"
+	return "Soldier"
 
 func generate_highelf_career() -> String:
 	var roll = Dice.roll_d100()
@@ -392,7 +392,7 @@ func generate_highelf_career() -> String:
 		return "Pit Fighter"
 	elif roll <= 98:
 		return "Protagonist"
-	else: return "Soldier"
+	return "Soldier"
 
 func generate_woodelf_career() -> String:
 	var roll = Dice.roll_d100()
@@ -438,4 +438,4 @@ func generate_woodelf_career() -> String:
 		return "Knight"
 	elif roll <= 96:
 		return "Pit Fighter"
-	else: return "Soldier"
+	return "Soldier"

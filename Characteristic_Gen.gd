@@ -1,12 +1,12 @@
 extends Node
 
-var character_generator = preload("res://CharacterGenerator.gd").new() #Loads the script and creates an instance of it to use its functions
+#var character_generator = preload("res://CharacterGenerator.gd").new() #Loads the script and creates an instance of it to use its functions
 
 #Roll 2d10 for each of the Characteristics
-func generate_start_charac() -> Dictionary: 
+func generate_start_charac(species_choice: String) -> Dictionary: 
 	var attrs = {} # Both this and the next line create an empty dictionary that will have data added later
 	var stat_bonus_dict = {}
-	if character_generator.generate_species() == "Human":
+	if species_choice == "Human":
 		var base = { # Creates a dictionary with the following keys and values to be used as the base for the character's attributes
 			"Weapon Skill": 20,
 			"Ballistic Skill": 20,
@@ -36,7 +36,7 @@ func generate_start_charac() -> Dictionary:
 		attrs["Extra Points"] = 3
 		attrs["Movement"] = 4 # all similar above lines are keys and values being added to the attrs dictionary
 		return attrs # very last thing this func does is send the attrs dictionary back to the caller, which is the generate_attributes function in CharacterGenerator.gd
-	elif character_generator.generate_species() == "Dwarf":
+	elif species_choice == "Dwarf":
 		var base = {
 			"Weapon Skill": 30,
 			"Ballistic Skill": 20,
@@ -61,7 +61,7 @@ func generate_start_charac() -> Dictionary:
 		attrs["Extra Points"] = 2
 		attrs["Movement"] = 3
 		return attrs
-	elif character_generator.generate_species() == "Halfling":
+	elif species_choice == "Halfling":
 		var base = {
 			"Weapon Skill": 10,
 			"Ballistic Skill": 30,

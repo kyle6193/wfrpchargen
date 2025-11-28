@@ -1,6 +1,6 @@
 extends Node
 
-#var character_generator = preload("res://CharacterGenerator.gd").new() #Loads the script and creates an instance of it to use its functions
+# var character_generator = preload("res://CharacterGenerator.gd").new() #Loads the script and creates an instance of it to use its functions
 
 #Roll 2d10 for each of the Characteristics
 func generate_start_charac(species_choice: String) -> Dictionary: 

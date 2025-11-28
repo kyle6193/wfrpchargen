@@ -1,5 +1,6 @@
 extends Node
 
+
 func generate_human_career() -> String:
 	var roll = Dice.roll_d100()
 	if roll <= 1:

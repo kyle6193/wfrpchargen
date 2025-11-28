@@ -45,7 +45,7 @@ func report_career_class(chosen_career: String) -> String:	# Without the chosen_
 	}
 	for key in classes: # You can read this as "for each Class....
 		if chosen_career in classes[key]: #... if the chosen_career is in that class...
-			return key #... send the class to the caller."
+			return key # ... send the class to the caller."
 	return "Error: Career not found in any class" # Fallback
 
 # Step 3: Generate Attributes.
